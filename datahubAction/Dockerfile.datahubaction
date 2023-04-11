@@ -1,0 +1,9 @@
+FROM acryldata/datahub-actions:v0.0.8
+
+# Avoid CVEs
+RUN apt update; apt --only-upgrade install libksba apr-util go libstasn1-6
+
+FROM python:3
+
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir apache-airflow pyspark
