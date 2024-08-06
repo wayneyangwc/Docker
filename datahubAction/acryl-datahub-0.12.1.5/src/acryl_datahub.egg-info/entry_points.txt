@@ -1,0 +1,112 @@
+[console_scripts]
+datahub = datahub.entrypoints:main
+
+[datahub.custom_packages]
+
+
+[datahub.ingestion.checkpointing_provider.plugins]
+datahub = datahub.ingestion.source.state_provider.datahub_ingestion_checkpointing_provider:DatahubIngestionCheckpointingProvider
+file = datahub.ingestion.source.state_provider.file_ingestion_checkpointing_provider:FileIngestionCheckpointingProvider
+
+[datahub.ingestion.reporting_provider.plugins]
+datahub = datahub.ingestion.reporting.datahub_ingestion_run_summary_provider:DatahubIngestionRunSummaryProvider
+file = datahub.ingestion.reporting.file_reporter:FileReporter
+
+[datahub.ingestion.sink.plugins]
+blackhole = datahub.ingestion.sink.blackhole:BlackHoleSink
+console = datahub.ingestion.sink.console:ConsoleSink
+datahub-kafka = datahub.ingestion.sink.datahub_kafka:DatahubKafkaSink
+datahub-lite = datahub.ingestion.sink.datahub_lite:DataHubLiteSink
+datahub-rest = datahub.ingestion.sink.datahub_rest:DatahubRestSink
+file = datahub.ingestion.sink.file:FileSink
+
+[datahub.ingestion.source.plugins]
+athena = datahub.ingestion.source.sql.athena:AthenaSource
+azure-ad = datahub.ingestion.source.identity.azure_ad:AzureADSource
+bigquery = datahub.ingestion.source.bigquery_v2.bigquery:BigqueryV2Source
+clickhouse = datahub.ingestion.source.sql.clickhouse:ClickHouseSource
+clickhouse-usage = datahub.ingestion.source.usage.clickhouse_usage:ClickHouseUsageSource
+csv-enricher = datahub.ingestion.source.csv_enricher:CSVEnricherSource
+datahub = datahub.ingestion.source.datahub.datahub_source:DataHubSource
+datahub-business-glossary = datahub.ingestion.source.metadata.business_glossary:BusinessGlossaryFileSource
+datahub-lineage-file = datahub.ingestion.source.metadata.lineage:LineageFileSource
+dbt = datahub.ingestion.source.dbt.dbt_core:DBTCoreSource
+dbt-cloud = datahub.ingestion.source.dbt.dbt_cloud:DBTCloudSource
+delta-lake = datahub.ingestion.source.delta_lake:DeltaLakeSource
+demo-data = datahub.ingestion.source.demo_data.DemoDataSource
+druid = datahub.ingestion.source.sql.druid:DruidSource
+dynamodb = datahub.ingestion.source.dynamodb.dynamodb:DynamoDBSource
+elasticsearch = datahub.ingestion.source.elastic_search:ElasticsearchSource
+feast = datahub.ingestion.source.feast:FeastRepositorySource
+file = datahub.ingestion.source.file:GenericFileSource
+fivetran = datahub.ingestion.source.fivetran.fivetran:FivetranSource
+gcs = datahub.ingestion.source.gcs.gcs_source:GCSSource
+glue = datahub.ingestion.source.aws.glue:GlueSource
+hana = datahub.ingestion.source.sql.hana:HanaSource
+hive = datahub.ingestion.source.sql.hive:HiveSource
+iceberg = datahub.ingestion.source.iceberg.iceberg:IcebergSource
+json-schema = datahub.ingestion.source.schema.json_schema:JsonSchemaSource
+kafka = datahub.ingestion.source.kafka:KafkaSource
+kafka-connect = datahub.ingestion.source.kafka_connect:KafkaConnectSource
+ldap = datahub.ingestion.source.ldap:LDAPSource
+looker = datahub.ingestion.source.looker.looker_source:LookerDashboardSource
+lookml = datahub.ingestion.source.looker.lookml_source:LookMLSource
+mariadb = datahub.ingestion.source.sql.mariadb.MariaDBSource
+metabase = datahub.ingestion.source.metabase:MetabaseSource
+mlflow = datahub.ingestion.source.mlflow:MLflowSource
+mode = datahub.ingestion.source.mode:ModeSource
+mongodb = datahub.ingestion.source.mongodb:MongoDBSource
+mssql = datahub.ingestion.source.sql.mssql:SQLServerSource
+mysql = datahub.ingestion.source.sql.mysql:MySQLSource
+nifi = datahub.ingestion.source.nifi:NifiSource
+okta = datahub.ingestion.source.identity.okta:OktaSource
+openapi = datahub.ingestion.source.openapi:OpenApiSource
+oracle = datahub.ingestion.source.sql.oracle:OracleSource
+postgres = datahub.ingestion.source.sql.postgres:PostgresSource
+powerbi = datahub.ingestion.source.powerbi:PowerBiDashboardSource
+powerbi-report-server = datahub.ingestion.source.powerbi_report_server:PowerBiReportServerDashboardSource
+presto = datahub.ingestion.source.sql.presto:PrestoSource
+presto-on-hive = datahub.ingestion.source.sql.presto_on_hive:PrestoOnHiveSource
+pulsar = datahub.ingestion.source.pulsar:PulsarSource
+redash = datahub.ingestion.source.redash:RedashSource
+redshift = datahub.ingestion.source.redshift.redshift:RedshiftSource
+s3 = datahub.ingestion.source.s3:S3Source
+sagemaker = datahub.ingestion.source.aws.sagemaker:SagemakerSource
+salesforce = datahub.ingestion.source.salesforce:SalesforceSource
+snowflake = datahub.ingestion.source.snowflake.snowflake_v2:SnowflakeV2Source
+sql-queries = datahub.ingestion.source.sql_queries:SqlQueriesSource
+sqlalchemy = datahub.ingestion.source.sql.sql_generic:SQLAlchemyGenericSource
+starburst-trino-usage = datahub.ingestion.source.usage.starburst_trino_usage:TrinoUsageSource
+superset = datahub.ingestion.source.superset:SupersetSource
+tableau = datahub.ingestion.source.tableau:TableauSource
+teradata = datahub.ingestion.source.sql.teradata:TeradataSource
+trino = datahub.ingestion.source.sql.trino:TrinoSource
+unity-catalog = datahub.ingestion.source.unity.source:UnityCatalogSource
+vertica = datahub.ingestion.source.sql.vertica:VerticaSource
+
+[datahub.ingestion.transformer.plugins]
+add_dataset_dataproduct = datahub.ingestion.transformer.add_dataset_dataproduct:AddDatasetDataProduct
+add_dataset_domain = datahub.ingestion.transformer.dataset_domain:AddDatasetDomain
+add_dataset_ownership = datahub.ingestion.transformer.add_dataset_ownership:AddDatasetOwnership
+add_dataset_properties = datahub.ingestion.transformer.add_dataset_properties:AddDatasetProperties
+add_dataset_tags = datahub.ingestion.transformer.add_dataset_tags:AddDatasetTags
+add_dataset_terms = datahub.ingestion.transformer.add_dataset_terms:AddDatasetTerms
+extract_dataset_tags = datahub.ingestion.transformer.extract_dataset_tags:ExtractDatasetTags
+extract_ownership_from_tags = datahub.ingestion.transformer.extract_ownership_from_tags:ExtractOwnersFromTagsTransformer
+mark_dataset_status = datahub.ingestion.transformer.mark_dataset_status:MarkDatasetStatus
+pattern_add_dataset_dataproduct = datahub.ingestion.transformer.add_dataset_dataproduct:PatternAddDatasetDataProduct
+pattern_add_dataset_domain = datahub.ingestion.transformer.dataset_domain:PatternAddDatasetDomain
+pattern_add_dataset_ownership = datahub.ingestion.transformer.add_dataset_ownership:PatternAddDatasetOwnership
+pattern_add_dataset_schema_tags = datahub.ingestion.transformer.add_dataset_schema_tags:PatternAddDatasetSchemaTags
+pattern_add_dataset_schema_terms = datahub.ingestion.transformer.add_dataset_schema_terms:PatternAddDatasetSchemaTerms
+pattern_add_dataset_tags = datahub.ingestion.transformer.add_dataset_tags:PatternAddDatasetTags
+pattern_add_dataset_terms = datahub.ingestion.transformer.add_dataset_terms:PatternAddDatasetTerms
+set_dataset_browse_path = datahub.ingestion.transformer.add_dataset_browse_path:AddDatasetBrowsePathTransformer
+simple_add_dataset_dataproduct = datahub.ingestion.transformer.add_dataset_dataproduct:SimpleAddDatasetDataProduct
+simple_add_dataset_domain = datahub.ingestion.transformer.dataset_domain:SimpleAddDatasetDomain
+simple_add_dataset_ownership = datahub.ingestion.transformer.add_dataset_ownership:SimpleAddDatasetOwnership
+simple_add_dataset_properties = datahub.ingestion.transformer.add_dataset_properties:SimpleAddDatasetProperties
+simple_add_dataset_tags = datahub.ingestion.transformer.add_dataset_tags:SimpleAddDatasetTags
+simple_add_dataset_terms = datahub.ingestion.transformer.add_dataset_terms:SimpleAddDatasetTerms
+simple_remove_dataset_ownership = datahub.ingestion.transformer.remove_dataset_ownership:SimpleRemoveDatasetOwnership
+

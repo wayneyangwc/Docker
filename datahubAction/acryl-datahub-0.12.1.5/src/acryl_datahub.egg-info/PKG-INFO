@@ -1,0 +1,110 @@
+Metadata-Version: 2.1
+Name: acryl-datahub
+Version: 0.12.1.5
+Summary: A CLI to work with DataHub metadata
+Home-page: https://datahubproject.io/
+License: Apache License 2.0
+Project-URL: Documentation, https://datahubproject.io/docs/
+Project-URL: Source, https://github.com/datahub-project/datahub
+Project-URL: Changelog, https://github.com/datahub-project/datahub/releases
+Project-URL: Releases, https://github.com/acryldata/datahub/releases
+Description: The `acryl-datahub` package contains a CLI and SDK for interacting with DataHub,
+        as well as an integration framework for pulling/pushing metadata from external systems.
+        
+        See the [DataHub docs](https://datahubproject.io/docs/metadata-ingestion).
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Environment :: Console
+Classifier: Environment :: MacOS X
+Classifier: Topic :: Software Development
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Provides-Extra: airflow
+Provides-Extra: all
+Provides-Extra: athena
+Provides-Extra: azure-ad
+Provides-Extra: base
+Provides-Extra: bigquery
+Provides-Extra: circuit-breaker
+Provides-Extra: clickhouse
+Provides-Extra: clickhouse-usage
+Provides-Extra: cloud
+Provides-Extra: databricks
+Provides-Extra: datahub
+Provides-Extra: datahub-business-glossary
+Provides-Extra: datahub-kafka
+Provides-Extra: datahub-lineage-file
+Provides-Extra: datahub-lite
+Provides-Extra: datahub-rest
+Provides-Extra: dbt
+Provides-Extra: dbt-cloud
+Provides-Extra: debug
+Provides-Extra: delta-lake
+Provides-Extra: dev
+Provides-Extra: druid
+Provides-Extra: dynamodb
+Provides-Extra: elasticsearch
+Provides-Extra: feast
+Provides-Extra: fivetran
+Provides-Extra: gcs
+Provides-Extra: glue
+Provides-Extra: great-expectations
+Provides-Extra: hana
+Provides-Extra: hive
+Provides-Extra: iceberg
+Provides-Extra: integration-tests
+Provides-Extra: json-schema
+Provides-Extra: kafka
+Provides-Extra: kafka-connect
+Provides-Extra: ldap
+Provides-Extra: looker
+Provides-Extra: lookml
+Provides-Extra: mariadb
+Provides-Extra: metabase
+Provides-Extra: mlflow
+Provides-Extra: mode
+Provides-Extra: mongodb
+Provides-Extra: mssql
+Provides-Extra: mssql-odbc
+Provides-Extra: mysql
+Provides-Extra: nifi
+Provides-Extra: okta
+Provides-Extra: oracle
+Provides-Extra: postgres
+Provides-Extra: powerbi
+Provides-Extra: powerbi-report-server
+Provides-Extra: presto
+Provides-Extra: presto-on-hive
+Provides-Extra: pulsar
+Provides-Extra: redash
+Provides-Extra: redshift
+Provides-Extra: s3
+Provides-Extra: sagemaker
+Provides-Extra: salesforce
+Provides-Extra: snowflake
+Provides-Extra: sql-parser
+Provides-Extra: sql-queries
+Provides-Extra: sqlalchemy
+Provides-Extra: starburst-trino-usage
+Provides-Extra: superset
+Provides-Extra: sync-file-emitter
+Provides-Extra: tableau
+Provides-Extra: teradata
+Provides-Extra: testing-utils
+Provides-Extra: trino
+Provides-Extra: unity-catalog
+Provides-Extra: vertica

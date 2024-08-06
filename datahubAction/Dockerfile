@@ -1,16 +1,13 @@
-FROM acryldata/datahub-actions:v0.0.8
+FROM acryldata/datahub-actions:v0.0.15
 
-USER root
-# Avoid CVEs
-#RUN apt-get update && apt-get install libtasn1-6 -y 
+#USER root
+COPY ./*.whl .
 
-RUN apt-get update && apt-get install libksba-dev libapr1 libaprutil1 libtasn1-6 -y 
-COPY ./go1.20.3.linux-amd64.tar.gz /usr/local/.
-RUN  rm -rf /usr/local/go && tar -C /usr/local -xzf /usr/local/go1.20.3.linux-amd64.tar.gz
-# libaprutil1
-#libksba apr-util go libstasn1-6
+RUN pip install acryl_datahub-0.12.1.5-py3-none-any.whl[s3] 
 
 FROM python:3
 #USER datahub
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir apache-airflow pyspark
+    pip install pymysql==1.1.1 && \
+    pip install pyarrow==14.0.1 && \
+    pip install flask-appbuilder==4.3.11
