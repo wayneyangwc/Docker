@@ -8,11 +8,6 @@ Project-URL: Documentation, https://datahubproject.io/docs/
 Project-URL: Source, https://github.com/datahub-project/datahub
 Project-URL: Changelog, https://github.com/datahub-project/datahub/releases
 Project-URL: Releases, https://github.com/acryldata/datahub/releases
-Description: The `acryl-datahub` package contains a CLI and SDK for interacting with DataHub,
-        as well as an integration framework for pulling/pushing metadata from external systems.
-        
-        See the [DataHub docs](https://datahubproject.io/docs/metadata-ingestion).
-        
 Platform: UNKNOWN
 Classifier: Development Status :: 5 - Production/Stable
 Classifier: Programming Language :: Python
@@ -108,3 +103,10 @@ Provides-Extra: testing-utils
 Provides-Extra: trino
 Provides-Extra: unity-catalog
 Provides-Extra: vertica
+
+The `acryl-datahub` package contains a CLI and SDK for interacting with DataHub,
+as well as an integration framework for pulling/pushing metadata from external systems.
+
+See the [DataHub docs](https://datahubproject.io/docs/metadata-ingestion).
+
+
