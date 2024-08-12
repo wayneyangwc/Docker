@@ -604,7 +604,7 @@ class OracleSource(SQLAlchemySource):
         # call default implementation first
         db_name = super().get_db_name(inspector)
 
-        if db_name == "" 
+        if db_name == "": 
             db_name = self.config.service_name
 
         return db_name
