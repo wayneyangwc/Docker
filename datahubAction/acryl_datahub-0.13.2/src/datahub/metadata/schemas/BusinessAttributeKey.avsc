@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "Aspect": {
+    "name": "businessAttributeKey",
+    "keyForEntity": "businessAttribute",
+    "entityCategory": "core",
+    "entityAspects": [
+      "businessAttributeInfo",
+      "status",
+      "ownership",
+      "institutionalMemory"
+    ]
+  },
+  "name": "BusinessAttributeKey",
+  "namespace": "com.linkedin.pegasus2avro.businessattribute",
+  "fields": [
+    {
+      "type": "string",
+      "name": "id",
+      "doc": "A unique id for the Business Attribute."
+    }
+  ],
+  "doc": "Key for a Query"
+}
