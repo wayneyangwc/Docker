@@ -12,7 +12,7 @@ from datahub.metadata.com.linkedin.pegasus2avro.schema import (
     SchemaField,
     SchemaMetadata,
 )
-from datahub.metadata.schema_classes import SchemaFieldDataTypeClass, StringTypeClass
+from datahub.metadata.schema_classes import SchemaFieldDataTypeClass, StringTypeClass, NumberTypeClass, ArrayTypeClass, BooleanTypeClass
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +120,15 @@ def get_endpoints(sw_dict: dict) -> dict:  # noqa: C901
     check_sw_version(sw_dict)
 
     for p_k, p_o in sw_dict["paths"].items():
-        method = list(p_o)[0]
+        # method = list(p_o)[0]
+        method2Check = {'get','post','put'}
+        existing_method = method2Check.intersection(p_o.keys())
+
+        if len(existing_method) == 0:
+            continue
+        
+        method = list(existing_method)[0]
+
         if "200" in p_o[method]["responses"].keys():
             base_res = p_o[method]["responses"]["200"]
         elif 200 in p_o[method]["responses"].keys():
@@ -144,7 +152,14 @@ def get_endpoints(sw_dict: dict) -> dict:  # noqa: C901
 
         url_details[p_k] = {"description": desc, "tags": tags, "method": method}
 
-        example_data = check_for_api_example_data(base_res, p_k)
+        example_data = {}
+        if "content" in base_res.keys() and "application/json" in base_res["content"].keys():
+            if 'example' in base_res['content']["application/json"] or 'examples' in base_res['content']["application/json"]:
+                example_data = check_for_api_example_data(base_res, p_k)
+            else:
+                example_data = parse_schema(base_res['content']['application/json']['schema'],sw_dict)
+
+        # example_data = check_for_api_example_data(base_res, p_k)
         if example_data:
             url_details[p_k]["data"] = example_data
 
@@ -153,6 +168,35 @@ def get_endpoints(sw_dict: dict) -> dict:  # noqa: C901
             url_details[p_k]["parameters"] = p_o[method]["parameters"]
 
     return dict(sorted(url_details.items()))
+
+
+def parse_schema(obj, sw_dict, parent_key='') -> dict:
+    result = {}
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k == '$ref':
+                schemaPath = v.split('/')
+                result.update(parse_schema(sw_dict[schemaPath[1]][schemaPath[2]][schemaPath[3]],sw_dict,parent_key))
+            elif k == 'allOf':
+                schemaPath = v[0]['$ref'].split('/')
+                result.update(parse_schema(sw_dict[schemaPath[1]][schemaPath[2]][schemaPath[3]],sw_dict,parent_key))
+            elif k == 'anyOf':
+                for item in v:
+                    schemaPath = item['$ref'].split('/')
+                    result.update(parse_schema(sw_dict[schemaPath[1]][schemaPath[2]][schemaPath[3]],sw_dict,parent_key))
+            if k != 'properties':  # skip key is "properties"
+                if k == 'items':
+                    full_key = f"{parent_key}.{'0'}" if parent_key else "0"
+                else:
+                    full_key = f"{parent_key}.{k}" if parent_key else k
+            else:
+                full_key = parent_key
+            if k == 'type' and parent_key:  # Only add if 'type' key found
+                if v != 'object' and v != 'array':  # skip type is object and array
+                    result[parent_key] = {'type': v}
+            elif:
+                result.update(parse_schema(v, sw_dict, full_key))
+    return result
 
 
 def check_for_api_example_data(base_res: dict, key: str) -> dict:
@@ -386,13 +430,48 @@ def set_metadata(
     canonical_schema: List[SchemaField] = []
 
     for column in fields:
-        field = SchemaField(
-            fieldPath=column,
-            nativeDataType="str",
-            type=SchemaFieldDataTypeClass(type=StringTypeClass()),
-            description="",
-            recursive=False,
-        )
+        if 'type' in fields[column]:
+            if fields[column]['type'] == 'integer' or fields[column]['type'] == 'number' or fields[column]['type'] == 'int':
+                field = SchemaField(
+                    fieldPath=column,
+                    nativeDataType="num",
+                    type=SchemaFieldDataTypeClass(type=NumberTypeClass()),
+                    description="",
+                    recursive=False,
+                )
+            elif fields[column]['type'] == 'boolean':
+                field = SchemaField(
+                    fieldPath=column,
+                    nativeDataType="str",
+                    type=SchemaFieldDataTypeClass(type=BooleanTypeClass()),
+                    description="",
+                    recursive=False,
+                )
+            elif fields[column]['type'] == 'array':
+                field = SchemaField(
+                    fieldPath=column,
+                    nativeDataType="str",
+                    type=SchemaFieldDataTypeClass(type=ArrayTypeClass()),
+                    description="",
+                    recursive=False,
+                )
+            else:
+                field = SchemaField(
+                    fieldPath=column,
+                    nativeDataType="str",
+                    type=SchemaFieldDataTypeClass(type=StringTypeClass()),
+                    description="",
+                    recursive=False,
+                )
+        else:
+            field = SchemaField(
+                fieldPath=column,
+                nativeDataType="str",
+                type=SchemaFieldDataTypeClass(type=StringTypeClass()),
+                description="",
+                recursive=False,
+            )
+
         canonical_schema.append(field)
 
     schema_metadata = SchemaMetadata(

@@ -300,7 +300,10 @@ class APISource(Source, ABC):
             elif (
                 "{" not in endpoint_k
             ):  # if the API does not explicitly require parameters
-                tot_url = clean_url(config.url + self.url_basepath + endpoint_k)
+                if config.url:
+                    tot_url = clean_url(config.url + endpoint_k)
+                else:
+                    tot_url = clean_url(config.url + self.url_basepath + endpoint_k)
                 if config.token:
                     response = request_call(
                         tot_url,
@@ -330,7 +333,10 @@ class APISource(Source, ABC):
                 if endpoint_k not in config.forced_examples.keys():
                     # start guessing...
                     url_guess = try_guessing(endpoint_k, root_dataset_samples)
-                    tot_url = clean_url(config.url + self.url_basepath + url_guess)
+                    if config.url:
+                        tot_url = clean_url(config.url + url_guess)
+                    else:
+                        tot_url = clean_url(config.url + self.url_basepath + url_guess)
                     if config.token:
                         response = request_call(
                             tot_url,
@@ -360,7 +366,10 @@ class APISource(Source, ABC):
                     composed_url = compose_url_attr(
                         raw_url=endpoint_k, attr_list=config.forced_examples[endpoint_k]
                     )
-                    tot_url = clean_url(config.url + self.url_basepath + composed_url)
+                    if config.url:
+                        tot_url = clean_url(config.url + composed_url)
+                    else:
+                        tot_url = clean_url(config.url + self.url_basepath + composed_url)
                     if config.token:
                         response = request_call(
                             tot_url,

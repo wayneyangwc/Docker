@@ -27,7 +27,8 @@ RUN pip install pyspark-3.4.3-py2.py3-none-any.whl
 
 USER root
 # Avoid CVEs
-RUN dnf upgrade krb5*
-RUN dnf upgrade aom*
+RUN apt-get install libkrb5-dev
+RUN apt-get update && \
+    apt-get install -y libaom-dev
 #RUN apt-get install --only-upgrade update krb5*
 #RUN apt-get install --only-upgrade update aom*
