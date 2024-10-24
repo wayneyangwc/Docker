@@ -220,9 +220,6 @@ deps/jars/arrow-memory-core-11.0.0.jar
 deps/jars/arrow-memory-netty-11.0.0.jar
 deps/jars/arrow-vector-11.0.0.jar
 deps/jars/audience-annotations-0.5.0.jar
-deps/jars/avro-1.11.4.jar
-deps/jars/avro-ipc-1.11.4.jar
-deps/jars/avro-mapred-1.11.4.jar
 deps/jars/blas-3.0.3.jar
 deps/jars/bonecp-0.8.0.RELEASE.jar
 deps/jars/breeze-macros_2.12-2.1.0.jar
@@ -258,7 +255,6 @@ deps/jars/flatbuffers-java-1.12.0.jar
 deps/jars/gson-2.2.4.jar
 deps/jars/guava-14.0.1.jar
 deps/jars/hadoop-client-api-3.3.4.jar
-deps/jars/hadoop-client-runtime-3.3.4.jar
 deps/jars/hadoop-shaded-guava-1.1.1.jar
 deps/jars/hadoop-yarn-server-web-proxy-3.3.4.jar
 deps/jars/hive-beeline-2.3.9.jar
