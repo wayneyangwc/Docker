@@ -194,7 +194,7 @@ def parse_schema(obj, sw_dict, parent_key='') -> dict:
             if k == 'type' and parent_key:  # Only add if 'type' key found
                 if v != 'object' and v != 'array':  # skip type is object and array
                     result[parent_key] = {'type': v}
-            elif:
+            elif isinstance(v, dict):
                 result.update(parse_schema(v, sw_dict, full_key))
     return result
 
