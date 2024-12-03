@@ -54,7 +54,7 @@ from datahub.ingestion.api.decorators import (
 )
 from datahub.ingestion.api.source import MetadataWorkUnitProcessor, SourceReport
 from datahub.ingestion.api.workunit import MetadataWorkUnit
-from datahub.ingestion.source.aws.s3_boto_utils import get_s3_tags, list_folders
+from datahub.ingestion.source.aws.s3_boto_utils import get_s3_tags, list_folders, list_folders_path
 from datahub.ingestion.source.aws.s3_util import (
     get_bucket_name,
     get_bucket_relative_path,
@@ -894,6 +894,8 @@ class S3Source(StatefulIngestionSourceBase):
                 for file, timestamp, size in file_browser:
                     if not path_spec.allowed(file):
                         continue
+                    if self.check_delta_log(file):
+                        continue
                     table_data = self.extract_table_data(
                         path_spec, file, timestamp, size
                     )
@@ -969,3 +971,10 @@ class S3Source(StatefulIngestionSourceBase):
 
     def get_report(self):
         return self.report
+
+    def check_delta_log(self,file):
+        prefix = "/".join(file.split("/")[:-1])+"/"
+        for folder_path in list_folders_path(prefix,self.source_config.aws_config):
+            if "_delta_log" in folder_path:
+                return True
+        return False
