@@ -31,5 +31,9 @@ RUN apt-get update && \
     apt-get install -y  libkrb5-dev
 RUN apt-get update && \
     apt-get install -y libaom-dev
+RUN apt-get update && \
+    apt-get install -y expat
+RUN apt-get update && \
+    apt-get install -y git
 #RUN apt-get install --only-upgrade update krb5*
 #RUN apt-get install --only-upgrade update aom*

@@ -1,0 +1,51 @@
+{
+  "type": "record",
+  "Aspect": {
+    "name": "businessAttributes"
+  },
+  "name": "BusinessAttributes",
+  "namespace": "com.linkedin.pegasus2avro.businessattribute",
+  "fields": [
+    {
+      "Relationship": {
+        "/businessAttributeUrn": {
+          "entityTypes": [
+            "businessAttribute"
+          ],
+          "name": "BusinessAttributeOf"
+        }
+      },
+      "SearchableRef": {
+        "/businessAttributeUrn": {
+          "boostScore": 0.5,
+          "fieldName": "businessAttributeRef",
+          "fieldType": "URN",
+          "refType": "businessAttribute"
+        }
+      },
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "BusinessAttributeAssociation",
+          "namespace": "com.linkedin.pegasus2avro.businessattribute",
+          "fields": [
+            {
+              "java": {
+                "class": "com.linkedin.pegasus2avro.common.urn.BusinessAttributeUrn"
+              },
+              "type": "string",
+              "name": "businessAttributeUrn",
+              "doc": "Urn of the applied businessAttribute",
+              "Urn": "BusinessAttributeUrn"
+            }
+          ]
+        }
+      ],
+      "name": "businessAttribute",
+      "default": null,
+      "doc": "Business Attribute for this field."
+    }
+  ],
+  "doc": "BusinessAttribute aspect used for applying it to an entity"
+}

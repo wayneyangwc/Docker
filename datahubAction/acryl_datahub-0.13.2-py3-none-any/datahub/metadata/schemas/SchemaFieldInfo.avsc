@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "Aspect": {
+    "name": "schemafieldInfo"
+  },
+  "name": "SchemaFieldInfo",
+  "namespace": "com.linkedin.pegasus2avro.schemafield",
+  "fields": [
+    {
+      "Searchable": {
+        "fieldNameAliases": [
+          "_entityName"
+        ],
+        "fieldType": "KEYWORD"
+      },
+      "type": [
+        "null",
+        "string"
+      ],
+      "name": "name",
+      "default": null
+    }
+  ]
+}
